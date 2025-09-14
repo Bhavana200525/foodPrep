@@ -1,33 +1,22 @@
-import React from 'react'
-import {Routes,Route} from 'react-router-dom'
-import Navbar from './components/Navbar/Navbar'
-import Sidebar from './components/Sidebar/Sidebar'
-import Add from './screens/Add/Add'
-import List from './screens/List/List'
-import Orders from './screens/Orders/Orders'
-import { ToastContainer} from 'react-toastify';
-import './App.css'
+import { Routes, Route, Navigate } from "react-router-dom";
+import AdminLayout from "./components/AdminLayout";
+import Dashboard from "./pages/Dashboard";
+import Drivers from "./pages/Drivers";
+import Riders from "./pages/Riders";
+import Rides from "./pages/Rides";
+import Reports from "./pages/Reports";
 
-const url = 'http://localhost:4000'
-
-const App = () => {
-  
+export default function App() {
   return (
-    <div className='app'>
-      <ToastContainer/>
-      <Navbar/>
-      <hr />
-      <div className="app-content">
-        <Sidebar/>
-        <Routes>
-          <Route path='/' element={<Add url={url}/>}/>
-          <Route path='/add' element={<Add url={url}/>}/>
-          <Route path='/list' element={<List url={url}/>}/>
-          <Route path='/orders' element={<Orders url={url}/>}/>
-        </Routes>
-      </div>
-    </div>
-  )
+    <Routes>
+      <Route element={<AdminLayout />}>
+        <Route index element={<Navigate to="/dashboard" replace />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/drivers" element={<Drivers />} />
+        <Route path="/riders" element={<Riders />} />
+        <Route path="/rides" element={<Rides />} />
+        <Route path="/reports" element={<Reports />} />
+      </Route>
+    </Routes>
+  );
 }
-
-export default App
